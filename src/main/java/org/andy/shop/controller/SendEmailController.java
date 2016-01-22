@@ -1,5 +1,7 @@
 package org.andy.shop.controller;
 
+import org.andy.shop.model.Email;
+import org.andy.shop.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -22,10 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 public class SendEmailController {
 
     @Autowired
-    private JavaMailSender mailSender;
+    private MailService mailService;
 
-    @Value("#{username}")
-    private  String sendFrom;
     @RequestMapping(value = "/sendEmail")
     public String sendEmail(ServletRequest request) {
         return "/email/EmailForm";
@@ -36,15 +36,27 @@ public class SendEmailController {
         String recipientAddress = request.getParameter("recipient");
         String subject = request.getParameter("subject");
         String message = request.getParameter("message");
-        // creates a simple e-mail object
-        SimpleMailMessage email = new SimpleMailMessage();
-        email.setFrom(sendFrom); //126 邮箱非要填写发件人变态的地方
-        email.setTo(recipientAddress);
+
+        Email email =new Email();
+        email.setToAddress(recipientAddress);
         email.setSubject(subject);
-        email.setText(message);
+        email.setContent(message);
+        try {
+            mailService.sendMail(email);
+            System.out.println("发送邮件");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        // creates a simple e-mail object
+        //SimpleMailMessage email = new SimpleMailMessage();
+        //email.setFrom(sendFrom); //126 邮箱非要填写发件人变态的地方
+       // email.setTo(recipientAddress);
+        //email.setSubject(subject);
+       // email.setText(message);
 
         // sends the e-mail
-        mailSender.send(email);
+       // mailSender.send(email);
         return "/email/Result";
     }
 

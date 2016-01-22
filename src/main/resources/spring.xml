@@ -12,4 +12,29 @@
 	<!--自动扫描含有@Service将其注入为bean -->
 	<context:component-scan base-package="org.andy.shop.service" />
 
+
+	<!-- 配置邮件服务 -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${host}" />
+		<property name="port" value="${port}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+
+
+	<!-- 线程池 -->
+	<bean id="taskExecutor" class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="5" />
+		<property name="maxPoolSize" value="10" />
+		<property name="queueCapacity" value="25" />
+	</bean>
+
+
 </beans>
