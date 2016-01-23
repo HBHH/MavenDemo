@@ -36,5 +36,5 @@
 		<property name="queueCapacity" value="25" />
 	</bean>
 
-
+	<import resource="spring-quartz.xml"/>
 </beans>
