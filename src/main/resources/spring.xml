@@ -15,10 +15,10 @@
 
 	<!-- 配置邮件服务 -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="${host}" />
-		<property name="port" value="${port}" />
-		<property name="username" value="${username}" />
-		<property name="password" value="${password}" />
+		<property name="host" value="${smtp.host}" />
+		<property name="port" value="${smtp.port}" />
+		<property name="username" value="${smtp.username}" />
+		<property name="password" value="${smtp.password}" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.transport.protocol">smtp</prop>

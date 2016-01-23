@@ -18,8 +18,8 @@ import java.io.IOException;
 @Service("mailService")
 public class MailServiceImpl implements MailService {
 
-    @Value("${username}")
-    private String username ;
+    @Value("${smtp.username}")
+    private String fromAddress ;
 
     @Autowired
     private JavaMailSender mailSender;
@@ -32,7 +32,7 @@ public class MailServiceImpl implements MailService {
             sendMailByAsynchronousMode(email);
             this.message.append("收件人过多，正在采用异步方式发送...<br/>");
         } else {*/
-        email.setFromAddress(username);
+        email.setFromAddress(fromAddress);//解决126邮箱必须填发送人地址的问题，其他的邮箱可以忽悠
         sendMailBySynchronizationMode(email);
         //this.message.append("正在同步方式发送邮件...<br/>");
         //}

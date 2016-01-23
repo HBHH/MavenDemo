@@ -43,20 +43,9 @@ public class SendEmailController {
         email.setContent(message);
         try {
             mailService.sendMail(email);
-            System.out.println("发送邮件");
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        // creates a simple e-mail object
-        //SimpleMailMessage email = new SimpleMailMessage();
-        //email.setFrom(sendFrom); //126 邮箱非要填写发件人变态的地方
-       // email.setTo(recipientAddress);
-        //email.setSubject(subject);
-       // email.setText(message);
-
-        // sends the e-mail
-       // mailSender.send(email);
         return "/email/Result";
     }
 
